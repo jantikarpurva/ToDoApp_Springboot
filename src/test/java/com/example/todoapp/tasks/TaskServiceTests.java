@@ -1,35 +1,34 @@
 package com.example.todoapp.tasks;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskServiceTests {
 
-    private TaskService getTaskService(){
-        return new TaskService();
-    }
+    static int id = 0;
+    @Autowired
+    TaskService service;
 
     @Test
     void addTaskWorks(){
-        var service = getTaskService();
         var taskName = "finish this project";
         var index = service.addTask(taskName);
-        assertEquals(0,index);
+        assertEquals(id,index);
+        id++;
     }
 
     @Test
     void getTaskWorks(){
-        var service = getTaskService();
         var taskName = "finish this project";
         var index = service.addTask(taskName);
-        var task = service.getTask(0);
+        var task = service.getTask(index);
         assertEquals(taskName, task.getName());
     }
 
     @Test
     void setTaskWorks(){
-        var service = getTaskService();
         var taskName = "finish this project";
         var index = service.addTask(taskName);
         var task = service.setTaskDone(index, true);
